@@ -13,12 +13,16 @@ enum Expression {
 
     static Expression of(String expression) {
         return Stream.of(Expression.values())
-                     .filter(ex -> ex.getExpression().equals(expression))
+                     .filter(ex -> ex.matchWith(expression))
                      .findFirst()
                      .orElseThrow(() -> new IllegalArgumentException(String.format("%s는 사칙연산에 해당하지 않는 표현식입니다.", expression)));
     }
 
     public String getExpression() {
         return expression;
+    }
+
+    private boolean matchWith(String expression) {
+        return getExpression().equals(expression);
     }
 }

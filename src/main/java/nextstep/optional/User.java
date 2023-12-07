@@ -53,8 +53,10 @@ public class User {
             return false;
         }
 
-        return user.age >= MIN_AGE &&
-               user.age <= MAX_AGE;
+        return Optional.of(user)
+                       .map(User::getAge)
+                       .map(age -> (MIN_AGE <= age) && (MAX_AGE >= age))
+                       .orElse(false);
     }
 
     @Override
